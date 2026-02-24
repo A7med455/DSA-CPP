@@ -4,7 +4,7 @@
 Data Structures and Algorithms solutions implemented during college lab sessions.
 
 ## Contents
-This repository contains C++ solutions for DSA problems solved in college sections:
+This repository contains C++ solutions for DSA problems solved in sections:
 
 - **Section/** - Lab session problems
 - **Section2/** - Additional practice problems
