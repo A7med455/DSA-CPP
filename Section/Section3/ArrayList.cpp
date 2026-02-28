@@ -22,10 +22,10 @@ public:
     }
     void makeNull() // clear the array O(1)
     {
-        last=-1;
+        last = -1;
     }
 
-    int end() // return the last index
+    int end() // return the size of list
     {
         return last+1;
     }
@@ -205,7 +205,7 @@ public:
             }
         }
    }
-
+   
   /*
   1)void remove_occurrences...later
   2)void split...later
