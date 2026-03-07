@@ -129,7 +129,7 @@ public:
         return pos+1;
    }
 
-   int Position_previous(int pos)
+   int previous(int pos)
    {
         if(pos<=0||pos>last)
         {
@@ -206,13 +206,80 @@ public:
         }
    }
    
-  /*
-  1)void remove_occurrences...later
-  2)void split...later
-  3)List concatenate...later
-  4)ElmenetType sum...later
-  5)ElmenetType max...later
-  */
+   void remove_occurrences(List &l,int x) //Remove every occurrence of a specific value x from the list L.
+   {
+    int pos = l.Position_first();
+    while(true)
+    {
+        pos = l.locate_in_range(x,pos,l.previous(l.end()));
+        if(pos == -1)
+            break;
+        else
+            l.delete_at(pos);
+    }
+   }
+
+   void split(List l, List &odd, List &even)
+   {
+        int curr_pos = l.Position_first();
+        while(curr_pos != l.end())
+        {
+            int x=l.retrieve(curr_pos);
+            if(x%2==0)
+            {
+                even.insert(x,even.end());
+            }
+            else
+            {
+                odd.insert(x,odd.end());
+            }
+            curr_pos=l.Position_next(curr_pos);
+        }
+   }
+
+   List concatenate(List &l1,List &l2) //Combine two lists into a single new list containing all elements from l1 followed by all elements from l2
+   {
+        List l3(l1.end()+l2.end());
+        int pos=l1.Position_first();
+        while(pos!=l1.end())
+        {
+            l3.insert(l1.retrieve(pos),l3.end());
+            pos=l1.Position_next(pos);
+        }
+        pos=l2.Position_first();
+        while(pos!=l2.end())
+        {
+            l3.insert(l2.retrieve(pos),l3.end());
+        }
+        return l3;
+   }
+
+   int sum(List l) //Calculate and return the total sum of all elements in the list
+   {
+        int pos=l.Position_first();
+        int total = 0;
+        while(pos!=l.end())
+        {
+            total += l.retrieve(pos);
+            pos=l.Position_next(pos);
+        }
+        return total;
+   }
+
+   int max(List l) //Find and return the largest value in the list
+   {
+        int pos=l.Position_first();
+        int x = l.retrieve(l.Position_first());
+        while(pos!=l.end())
+        {
+            if(x<l.retrieve(pos))
+            {
+                x=l.retrieve(pos);
+                pos=l.Position_next(pos);
+            }
+        }
+        return x;
+   }
 };
 
 int main()
