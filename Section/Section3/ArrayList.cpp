@@ -250,6 +250,7 @@ public:
         while(pos!=l2.end())
         {
             l3.insert(l2.retrieve(pos),l3.end());
+            pos=l2.Position_next(pos);
         }
         return l3;
    }
@@ -272,11 +273,12 @@ public:
         int x = l.retrieve(l.Position_first());
         while(pos!=l.end())
         {
-            if(x<l.retrieve(pos))
+            int current = l.retrieve(pos);
+            if(x < current)
             {
-                x=l.retrieve(pos);
-                pos=l.Position_next(pos);
+                x = current; 
             }
+            pos = l.Position_next(pos);  
         }
         return x;
    }
