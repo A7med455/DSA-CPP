@@ -162,7 +162,7 @@ public:
    {
         List l2(l1.size());
         int pos = l1.Position_first();
-        while(pos!=l1.end())
+        while(pos!=l1.end()) 
         {
             l2.insert(l1.retrieve(pos),l2.Position_first());
             //pos=l1.Position_next();
@@ -186,10 +186,10 @@ public:
 
    void purge(List &l)
    {
-        int pos=l.Position_first();
+        int pos=l.Position_first(); 
         while(pos!=l.end())
         {
-            int q=l.Position_next(pos); //start checking elements after pos
+            int q=l.Position_next(pos); //start checking elements after pos 
             while(q!=l.end())
             {
                 if(l.retrieve(pos) == l.retrieve(q)) //duplicate found
@@ -219,7 +219,7 @@ public:
     }
    }
 
-   void split(List l, List &odd, List &even)
+   void split(List l, List &odd, List &even) //(1,2,3,4,5)     () 
    {
         int curr_pos = l.Position_first();
         while(curr_pos != l.end())
@@ -267,7 +267,7 @@ public:
         return total;
    }
 
-   int max(List l) //Find and return the largest value in the list
+   int max(List &l) //Find and return the largest value in the list
    {
         int pos=l.Position_first();
         int x = l.retrieve(l.Position_first());
