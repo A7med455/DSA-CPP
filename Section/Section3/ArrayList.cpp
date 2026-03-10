@@ -142,6 +142,7 @@ public:
    {
         return last+1;
    }
+};
 
    //list reverse function
    List reverse(List l1) //O(n)
@@ -282,8 +283,7 @@ public:
         }
         return x;
    }
-};
-
+   
 int main()
 {
 
