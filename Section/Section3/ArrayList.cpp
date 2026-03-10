@@ -194,7 +194,7 @@ public:
             {
                 if(l.retrieve(pos) == l.retrieve(q)) //duplicate found
                 {
-                    l.delete_at(q); // remove it 
+                    l.delete_at(q); // remove duplicate
                 }
                 else
                 {
@@ -219,7 +219,7 @@ public:
     }
    }
 
-   void split(List l, List &odd, List &even) //(1,2,3,4,5)     () 
+   void split(List l, List &odd, List &even)
    {
         int curr_pos = l.Position_first();
         while(curr_pos != l.end())
