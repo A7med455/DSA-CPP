@@ -303,6 +303,30 @@ public:
         }
         return avg/l.size();
     }
+    void swap(ElementType x,ElementType y,List &l1)
+    {
+        if(x==y)
+        {
+            return;
+        }
+        Position prevX=l1.Locate_before_X(x);
+        Position prevY=l1.Locate_before_X(y);
+        if(prevX==l1.end() || prevY==l1.end())
+        {
+            cout<<"one or both values not found"<<endl;
+            return;
+        }
+        Position currX=prevX->next;
+        Position currY=prevY->next;
+
+        prevX->next=currY;
+        prevY->next=currX;
+
+        Position temp=currX->next;
+        currX->next=currY->next;
+        currY->next=temp;
+
+    }
 
 int main()
 {
