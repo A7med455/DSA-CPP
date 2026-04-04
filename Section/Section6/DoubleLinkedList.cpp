@@ -31,7 +31,7 @@ class List{
 	Position end(){
 		return tail;
 	}
-	void InsertAtEnd(ElmenetType x){
+	void InsertAtEnd(ElmenetType x){ //O(1)
 			Position newNode=new node;
 			newNode->element=x;
 			newNode->prev=tail;
@@ -42,7 +42,7 @@ class List{
 			if (head==NULL)head=tail;
 			counter++;
 	}
-	void InsertAtStart(ElmenetType x){ 
+	void InsertAtStart(ElmenetType x){ //O(1)
 		Position newNode=new node;
 		newNode->element=x;
 		newNode->prev=NULL;
@@ -54,7 +54,7 @@ class List{
 		counter++;
 	}
 	//	INSERT(x, p, L). Insert x at position p in list L,  If list L has no position p, the result is undefined.
-	void Insert(ElmenetType x,Position p=NULL){
+	void Insert(ElmenetType x,Position p=NULL){//O(1)
 		if(p==NULL){
 			InsertAtEnd(x);
 		}
@@ -73,7 +73,7 @@ class List{
 			}		
 	} 
 //	Delete the element at position p of list L. If L is a0, a1, a2, . . . ,an-1, then L becomes a0, a1, a2, . . . ,ap- 1, ap+1, . . . ,an-1. The result is undefined if L has no position p or if p = END(L). 
-	void Delete(Position p)
+	void Delete(Position p) //O(1)
 	{
 		if(p==NULL){
 			cout<<"No Element to be deleted";
@@ -94,7 +94,7 @@ class List{
 			head=tail=NULL;
 	}
  //returns the position of x on list L. If x appears more than once, then the position of the first occurrence is returned. If x does not appear at all, then END(L) is returned.
-	Position Locate(ElmenetType x){
+	Position Locate(ElmenetType x){  //O(n)
 		Position p=head;
 		while(p!=NULL){
 			if(p->element==x)
@@ -105,7 +105,7 @@ class List{
 	}
 	//locate x in the range pos to endPos
 	Position LocateInRange(ElmenetType x,Position pos,Position endPos)
-		{
+		{ //O(n)
 			Position p=pos;
 			while(p!=endPos){
 				if(p->element==x)
@@ -116,7 +116,7 @@ class List{
 		}
 
 	//This function returns the element at position p on list L. The result is undefined if p = END(L) or if L has no position p. Note that the elements must be of a type that can be returned by a function if RETRIEVE is used. In practice, however, we can always modify RETRIEVE to return a pointer to an object of type elementtype. 
-	ElmenetType Retrieve(Position pos){
+	ElmenetType Retrieve(Position pos){ //O(1)
 		if (pos==NULL){
 			cout<<"ERROR in reterive";
 			return NULL;
@@ -124,7 +124,7 @@ class List{
 		return pos->element;
 	}
 
-	void PrintList(){
+	void PrintList(){ //O(n)
 		if(head==NULL){
 			cout<<"List is Empty";
 			return;
@@ -139,7 +139,7 @@ class List{
 		cout<<endl;
 	}
 	//This function returns the first position on list L. If L is empty, the position returned is END(L
-	Position First()
+	Position First() //O(1)
 		{
 			return head;
 		}
@@ -158,7 +158,7 @@ class List{
 	}
 };
 //reverses list.
-List Reverse(List l1)
+List Reverse(List l1) //O(n)
 {
 	List l2;
 	Position pos=l1.end();
@@ -170,7 +170,7 @@ List Reverse(List l1)
 	}
 	return l2;
 }
-List ReverseModified(List l1)
+List ReverseModified(List l1) //O(n)
 {
 	List l2;
 	Position pos=l1.First();
@@ -184,11 +184,11 @@ List ReverseModified(List l1)
 }
 //inserts a given value x after the value y in the list. If y doesn't exist in the list, add x at the end of the list.
 void InsertXAfterY(ElmenetType x, ElmenetType y, List &l)
-{
+{//O(n)
 	l.Insert(x,l.Next(l.Locate(y)));
 }
 //eliminates duplicates from list.
-void Purge ( List &L)
+void Purge ( List &L) //O(n^2)
 {//PURGE removes duplicate elements from list L 
 	Position p, q; 
     p = L.First();
@@ -208,7 +208,7 @@ void Purge ( List &L)
 	}
 }
 
-int max(List L){
+int max(List L){ //O(n)
 
 	
 	int m=L.Retrieve(L.First());
@@ -226,7 +226,7 @@ int max(List L){
 
 
 
-void RemoveOccurences1(List&L,int x)
+void RemoveOccurences1(List&L,int x) //O(n^2)
 {
 	Position pos=L.First();
 	while(pos!=L.END())
@@ -244,7 +244,7 @@ void RemoveOccurences1(List&L,int x)
 }
 //splits the linked to two lists, one for odd numbers and one for even numbers
 void Split(List L,List& lEven ,List& lOdd)
-{
+{ //O(n)
 	Position curr=L.First();
 	while(curr!=L.END())
 	//while(curr!=NULL)
@@ -260,7 +260,7 @@ void Split(List L,List& lEven ,List& lOdd)
 }
 // concatenates two lists.
 List concatenate(List l1,List l2)
-{
+{ //O(n)
 	List l;
 	Position curr=l1.First();
 	while(curr!=l1.END())
@@ -278,7 +278,7 @@ List concatenate(List l1,List l2)
 		curr=l2.Next(curr);
 	}
 	return l;
-}
+} //O(n)
  //calculates the summation of all values in the list.
 ElmenetType Sum(List L)
 {
