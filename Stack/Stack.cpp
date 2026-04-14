@@ -53,21 +53,7 @@ public:
         return arr[top];
     }
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};
 
 int main()
 {
