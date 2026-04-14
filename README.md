@@ -1,4 +1,4 @@
-# DSA Lec_Sec
+# DSA-CPP
 
 ## 📘 Description
 
