@@ -37,11 +37,11 @@ public:
         front=nullptr;
         rear=nullptr;
     }
-    bool isEmpty()
+    bool isEmpty() // O(1)
     {
         return front == nullptr;
     }
-    void enqueue(ElementType value)
+    void enqueue(ElementType value) // O(1)
     {
         Node* newnode= new Node(value);
         if(rear == nullptr)
@@ -56,7 +56,7 @@ public:
         cout<<"Enqueued:"<<value<<endl;
     }
 
-    void dequeue()
+    void dequeue() // O(1)
     {
         if(isEmpty())
         {
@@ -74,7 +74,7 @@ public:
         delete temp;
     }
 
-    void peek()
+    void peek() // O(1)
     {
         if(isEmpty())
         {
@@ -86,11 +86,40 @@ public:
             cout<<"Front element: "<<front->data<<endl;
         }
     }
+
+    void display() // O(n)
+    {
+        if(isEmpty())
+        {
+             cout << "Queue is empty" << endl;
+            return;
+        }
+
+        Node* temp = front;
+        cout<<"Queue: ";
+        while(temp != nullptr)
+        {
+            cout<<temp->data<<"->";
+            temp = temp->next;
+        }
+        cout<<"NULL"<<endl;
+    }
 };
 
 int main()
 {
+    Queue q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
 
+    q.dequeue();
+
+    q.display();
+
+    q.dequeue();
+    q.dequeue();
+    q.dequeue(); // triggers isEmpty function
 
     return 0;
 }
