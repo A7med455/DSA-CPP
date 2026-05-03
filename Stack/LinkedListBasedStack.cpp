@@ -42,11 +42,13 @@ class Stack
 {
 private:
     Node* top;
+    int counter;
 
 public:
     Stack()
     {
         top=nullptr;
+        counter=0;
     }
     bool isEmpty() //O(1)
     {
@@ -63,27 +65,35 @@ public:
     */
         return top == nullptr;
     }
+    Element size()
+    {
+        return counter;
+    }
 
     void push(Element value) //O(1)
     {
         Node* newnode = new Node(value);
         newnode->next = top;
         top = newnode;
+        counter++;
         cout<<"Pushed:"<<value<<endl;
     }
     
-    void pop() //O(1)
+    Element pop() //O(1)
     {
         if(isEmpty())
         {
             cout<<"Stack is empty, cannot pop"<<endl;
-            return;
+            return -99999;
         }
 
         Node* temp=top;
         top = top->next;
+        Element Value=temp->Data;
         cout<<"Popped:"<<temp->Data<<endl;
         delete temp;
+        counter--;
+        return Value;
     }
 
     void peek() //O(1)
@@ -97,6 +107,35 @@ public:
         cout<<"Top Element:"<<top->Data<<endl;
     }
 };
+
+Stack reverse(Stack s1)
+{
+    Stack s2;
+    while(!s1.isEmpty())
+    {
+        s2.push(s1.pop());
+    }
+    return s2;
+}
+
+Stack merge(Stack s1,Stack s2)
+{
+    Stack s3;
+    while(!s1.isEmpty())
+    {
+        s3.push(s1.pop());
+    }
+    while(!s2.isEmpty())
+    {
+        s3.push(s2.pop());
+    }
+    Stack s4;
+    while(!s3.isEmpty())
+    {
+        s4.push(s3.pop());
+    }
+    return s4;
+}
 
 int main()
 {
