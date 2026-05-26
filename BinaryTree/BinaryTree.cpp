@@ -112,6 +112,30 @@ public:
         }
     }
 
+    string searchMessage(int value)
+    {
+        node* current = root;
+        string message;
+        while(current != NULL)
+        {
+            if(current->element == value)
+            {
+                message = "Value " + to_string(value) + " found";
+                return message;
+            }
+            if(value < current->element)
+            {
+                current = current->left;
+            }
+            else
+            {
+                current = current->right;
+            }
+        }
+        message = "Value " + to_string(value) + " not found";
+        return message;
+    }
+
     int size()
     {
         return counter;
@@ -145,21 +169,11 @@ int main()
 
     cout << "Size: " << tree.size() << endl;
 
-    if(tree.search(30))
-    {
-        cout << "30 found" << endl;
-    }
-    else {
-        cout << "30 not found" << endl;
-    }
-
-    if(tree.search(14))
-    {
-        cout << "14 found" << endl;
-    }
-    else {
-        cout << "14 not found" << endl;
-    }
+    cout << tree.searchMessage(30) << endl;
+    cout << tree.searchMessage(14) << endl;
+    
+    cout<<tree.search(9)<<endl; //True(1) or False(0)
+   
 
     return 0;
 }
