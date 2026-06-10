@@ -8,6 +8,7 @@ private:
     int* arr;
     int top;
     int capacity;
+    int counter;
 
 public:
     Stack(int size) // Initialized an empty Stack
@@ -15,6 +16,7 @@ public:
         capacity = size;
         top = -1; // start with -1 bec no elements yet
         arr = new int[capacity];
+        counter = 0;
     }
     ~Stack()
     {
