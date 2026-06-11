@@ -1,127 +1,133 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-struct node
-{
-    int element;
-    node* left;
-    node* right;
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
 };
 
-class BinaryTree
-{
-private:
-    node* root;
-    int counter;
 
-    // private recursive insert
-    node* insert(node* current, int element)
-    {
-        if(current == NULL)
-        {
-            node* newNode = new node;
-            newNode->element = element;
-            newNode->left = NULL;
-            newNode->right = NULL;
-            counter++;
-            return newNode;
+Node* insert(Node* root, int value) {
+    if (root == nullptr) { // If current position is empty, insert here
+        Node* newNode = new Node{value, nullptr, nullptr};
+        return newNode;
+    }
+    
+    if (value < root->data) {
+        // If value is less, go to the left subtree
+        root->left = insert(root->left, value);
+    } else if (value > root->data) {
+        // If value is greater, go to the right subtree
+        root->right = insert(root->right, value);
+    }
+    
+    return root; // Return the current node back up the recursion chain
+}
+
+
+bool search(Node* root, int target) {
+    if (root == nullptr) { // If current node is null, value not found
+        return false;
+    }
+    
+    if (target == root->data) { // If value matches current node, found it
+        return true;
+    } else if (target < root->data) {
+        // If target is smaller, search in left subtree
+        return search(root->left, target);
+    } else {
+        // If target is greater, search in right subtree
+        return search(root->right, target);
+    }
+}
+
+
+void inorder(Node* root) {
+    if (root == nullptr) return; // Base case: if tree is empty, do nothing
+    
+    inorder(root->left); // Step 1: Visit left subtree
+    cout << root->data << " "; // Step 2: Visit root
+    inorder(root->right); // Step 3: Visit right subtree
+}
+
+
+Node* findMax(Node* root) {
+    while (root && root->right != nullptr) {
+        root = root->right; // Move down to the right as far as possible
+    }
+    return root;
+}
+
+
+Node* deleteNode(Node* root, int key) {
+    if (root == nullptr) return root;
+
+    // Traverse the tree to find the node to delete
+    if (key < root->data) {
+        root->left = deleteNode(root->left, key);
+    } else if (key > root->data) {
+        root->right = deleteNode(root->right, key);
+    } else {
+        // Node found. 
+        
+        // Case 1 & 2: Node has no children (leaf) OR only one child [cite: 140, 141]
+        if (root->left == nullptr) {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        } else if (root->right == nullptr) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
         }
-        if(element < current->element)
-            current->left = insert(current->left, element);
-        else if(element > current->element)
-            current->right = insert(current->right, element);
-        // if equal, duplicate, do nothing
-        return current;
+
+        // Case 3: Node has two children [cite: 142]
+        // Locate the inorder predecessor (max value in left subtree) [cite: 148]
+        Node* temp = findMax(root->left); 
+        
+        // Copy data of inorder predecessor node into current node [cite: 149]
+        root->data = temp->data; 
+        
+        // Delete the inorder predecessor node and re-link [cite: 150]
+        root->left = deleteNode(root->left, temp->data); 
+    }
+    return root;
+}
+
+// --- Main Function ---
+int main() {
+    Node* root = nullptr;
+
+    // Inserting nodes
+    root = insert(root, 31);
+    root = insert(root, 12);
+    root = insert(root, 78);
+    root = insert(root, 3);
+    root = insert(root, 16);
+    root = insert(root, 95);
+    root = insert(root, 7);
+    root = insert(root, 81);
+
+    cout << "Inorder traversal before deletion: ";
+    inorder(root);
+    cout << "\n";
+
+    // Searching for a value
+    int target = 16;
+    if (search(root, target)) {
+        cout << "Value " << target << " found in the tree.\n";
+    } else {
+        cout << "Value " << target << " not found.\n";
     }
 
-    // private recursive search
-    bool search(node* current, int value)
-    {
-        if(current == NULL)
-            return false;
-        if(current->element == value)
-            return true;
-        if(value < current->element)
-            return search(current->left, value);
-        else
-            return search(current->right, value);
-    }
+    // Deleting a node
+    cout << "Deleting node 31...\n";
+    root = deleteNode(root, 31);
 
-    // private recursive inorder
-    void inorder(node* current)
-    {
-        if(current == NULL)
-            return;
-        inorder(current->left);
-        cout << current->element << endl;
-        inorder(current->right);
-    }
-
-public:
-    BinaryTree()
-    {
-        root = NULL;
-        counter = 0;
-    }
-
-    // public insert
-    void insert(int element)
-    {
-        root = insert(root, element);
-    }
-
-    // public search
-    bool search(int value)
-    {
-        return search(root, value);
-    }
-
-    // public inorder
-    void inorder()
-    {
-        inorder(root);
-    }
-
-    int size()
-    {
-        return counter;
-    }
-
-    bool isEmpty()
-    {
-        return counter == 0;
-    }
-};
-
-int main()
-{
-    BinaryTree tree;
-
-    tree.insert(8);
-    tree.insert(3);
-    tree.insert(10);
-    tree.insert(1);
-    tree.insert(6);
-    tree.insert(14);
-    tree.insert(4);
-    tree.insert(7);
-    tree.insert(13);
-    tree.insert(3); // duplicate
-
-    cout << "Inorder traversal:" << endl;
-    tree.inorder();
-
-    cout << "Size: " << tree.size() << endl;
-
-    if(tree.search(30))
-        cout << "30 found" << endl;
-    else
-        cout << "30 not found" << endl;
-
-    if(tree.search(14))
-        cout << "14 found" << endl;
-    else
-        cout << "14 not found" << endl;
+    cout << "Inorder traversal after deletion: ";
+    inorder(root);
+    cout << "\n";
 
     return 0;
 }
